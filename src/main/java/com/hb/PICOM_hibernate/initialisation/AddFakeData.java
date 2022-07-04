@@ -76,7 +76,7 @@ public class AddFakeData implements CommandLineRunner {
         if(countryDao.count() == 0){
 
             //Create 30 new country
-            for(Integer i=0; i<30; i++){
+            for(Integer i=0; i<10; i++){
 
                 //faker country object
                 Country country= faker.country();
@@ -97,7 +97,7 @@ public class AddFakeData implements CommandLineRunner {
             this.countries = countryDao.findAll();
 
             //Create 30 cities
-            for(Integer i=0; i<30; i++){
+            for(Integer i=0; i<10; i++){
 
                 //faker adress object
                 Address address= faker.address();
@@ -117,7 +117,7 @@ public class AddFakeData implements CommandLineRunner {
             this.cities = cityDao.findAll();
 
             //Create 30 companies
-            for(Integer i=0 ; i<30; i++){
+            for(Integer i=0 ; i<10; i++){
 
                 /* Create faker address object*/
                 Address address= faker.address();
@@ -142,7 +142,7 @@ public class AddFakeData implements CommandLineRunner {
             this.companies=companyDao.findAll();
 
             //create 30 users//
-            for(Integer i=0; i<30; i++) {
+            for(Integer i=0; i<10; i++) {
 
                 /*Create faker name object*/
                 Name name = faker.name();
@@ -206,7 +206,7 @@ public class AddFakeData implements CommandLineRunner {
         if(zoneDao.count()==0){
 
            /*Create 30 zone */
-            for(Integer i=0; i<30; i++){
+            for(Integer i=0; i<10; i++){
 
                 String name=faker.lordOfTheRings().location();
                 String desc= faker.hitchhikersGuideToTheGalaxy().marvinQuote();
@@ -244,7 +244,7 @@ public class AddFakeData implements CommandLineRunner {
         if(timeSDao.count()==0){
 
             //create eachTime slot available ( between 6 am and 20pm)
-            for(Integer i=6; i<20; i++){
+            for(Integer i=6; i<10; i++){
                 Double price= faker.number().randomDouble(2,24,80);
                 //turn i into string to instantiate time slot localTime
                 String hour= null;
@@ -266,7 +266,7 @@ public class AddFakeData implements CommandLineRunner {
         if(adDao.count()==0){
 
             /*Create 50 ads*/
-            for(Integer i=0; i<50; i++){
+            for(Integer i=0; i<10; i++){
 
                 //*Generate random number for day to add to start the campaign to todays date*/
                 Instant startAt = Instant.now().plus(Duration.ofDays(random.nextInt(90)));
