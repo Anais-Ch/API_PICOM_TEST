@@ -228,7 +228,7 @@ public class AddFakeData implements CommandLineRunner {
             //create between 5 and 20 stops per zone
             for(Zone zone:zones){
                 //generate random number between 5 and 20
-                Integer nbStops = random.ints(5,31).findFirst().getAsInt();
+                Integer nbStops = random.ints(5,21).findFirst().getAsInt();
                 /*Create a number of stops equals to nbStops in the zone*/
                 for(Integer i=0; i<nbStops;i++){
 
@@ -244,7 +244,7 @@ public class AddFakeData implements CommandLineRunner {
         if(timeSDao.count()==0){
 
             //create eachTime slot available ( between 6 am and 20pm)
-            for(Integer i=6; i<10; i++){
+            for(Integer i=6; i<20; i++){
                 Double price= faker.number().randomDouble(2,24,80);
                 //turn i into string to instantiate time slot localTime
                 String hour= null;
