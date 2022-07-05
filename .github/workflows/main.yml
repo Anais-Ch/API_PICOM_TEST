@@ -20,7 +20,7 @@ jobs:
     
     strategy:
       matrix: 
-        java-version: [13,17]
+        java-version: [15,16,17]
   
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
