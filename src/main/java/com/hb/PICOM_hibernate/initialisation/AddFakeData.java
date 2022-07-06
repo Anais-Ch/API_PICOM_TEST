@@ -374,4 +374,8 @@ public class AddFakeData implements CommandLineRunner {
         }
     }
 
+    public void deleteMe(){
+        System.out.println("Delete theis function");
+    }
+
 }
