@@ -7,6 +7,9 @@ on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -26,6 +29,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
       # Runs a single command using the runners shell
       - name: Set up JDK ${{matrix.java-version}}
@@ -34,9 +39,19 @@ jobs:
           distribution: 'adopt'
           cache: 'maven'
           java-version: ${{matrix.java-version}}
+
+      - name: Cache SonarCloud packages
+          uses: actions/cache@v1
+          with:
+            path: ~/.sonar/cache
+            key: ${{ runner.os }}-sonar
+            restore-keys: ${{ runner.os }}-sonar
           
-      - name: Maven build
-        run: mvn --batch-mode --update-snapshots package
+      - name: Maven build and analyzes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=testing_manual --batch-mode --update-snapshots package
         
       - name: Upload Artifact for JDK ${{matrix.java-version}}
         uses: actions/upload-artifact@v3.1.0
