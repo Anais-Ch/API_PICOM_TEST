@@ -37,7 +37,6 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
-          cache: 'maven'
           java-version: ${{matrix.java-version}}
 
       - name: Cache SonarCloud packages
@@ -46,6 +45,12 @@ jobs:
             path: ~/.sonar/cache
             key: ${{ runner.os }}-sonar
             restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Maven packages
+          uses: actions/cache@v1
+          with:
+            path: ~/.m2
+            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+            restore-keys: ${{ runner.os }}-m2
           
       - name: Maven build and analyzes
         env:
